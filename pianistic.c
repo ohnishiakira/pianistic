@@ -3,7 +3,7 @@
  * Section "Module"
  *     Load         "record"
  */
-// gcc record_exp.c -o record -g `sdl-config --cflags --libs` -lSDL_mixer -lX11
+// gcc pianistic.c -o pianistic -g `sdl-config --cflags --libs` -lSDL_mixer -lX11
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,16 +44,14 @@ Mix_Music* sounds[26];
 
 void loadSounds(){
   char path[256];
-  int letter = 'a';
-  for (; letter <= 'j'; letter ++) {
-    sprintf(path, "audio/%c.wav", letter);
-    sounds[letter - 'a'] = Mix_LoadMUS(path);
+  int letter = 0;
+  for (;letter < 12; letter ++) {
+    sprintf(path, "audio/%c.wav", letter + 'a');
+    sounds[letter] = Mix_LoadMUS(path);
   }
 }
 
 void play(int index) {
-  printf("playing %d", index);
-  printf("%x", sounds[index]);
   Mix_PlayMusic(sounds[index%12], 0);
 }
 
